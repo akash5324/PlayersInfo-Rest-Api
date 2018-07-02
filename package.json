@@ -1,0 +1,26 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "rest api about the basic information of top tollywood actors",
+  "main": "app.js",
+  "scripts": {
+  	"start":"node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines":{
+  		"node":"6.11.0"
+  },
+  "author": "akash yadav",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "expect": "^23.2.0",
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
+    "mocha": "^5.2.0",
+    "mongodb": "^3.1.0",
+    "mongoose": "^5.1.7",
+    "nodemon": "^1.17.5",
+    "supertest": "^3.1.0"
+  }
+}
