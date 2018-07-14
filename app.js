@@ -4,6 +4,7 @@ const _=require('lodash');
 const {ObjectId}=require('mongodb');
 const {Info}=require('./models/info');
 const{User}=require('./models/users');
+var {authenticate} = require('./middleware/authenticate');
 const {mongoose}=require('./database/mongoose');
 const app=express();
 const port=process.env.PORT || 3000;
@@ -11,7 +12,7 @@ app.use(bodyparser.json());
 
 
 //posting data to the server
-app.post('/info',(req,res)=>{
+app.post('/info',authenticate,(req,res)=>{
 
 	
 	console.log('you made a post request');
@@ -46,7 +47,7 @@ app.post('/info',(req,res)=>{
 
 });
 //getting data from the api
-app.get('/info',(req,res)=>{
+app.get('/info',authenticate,(req,res)=>{
 
 	console.log('you made a get request');
 
@@ -64,7 +65,7 @@ app.get('/info',(req,res)=>{
 
 
 //getting data with particular id
-app.get('/info/:id',(req,res)=>{
+app.get('/info/:id',authenticate,(req,res)=>{
 
 	var id=req.params.id;
 		 console.log(id);
@@ -90,7 +91,7 @@ app.get('/info/:id',(req,res)=>{
 
 //deleting data with particular id
 
-app.delete('/info/:id', (req, res) => {
+app.delete('/info/:id',authenticate, (req, res) => {
   var id = req.params.id;
 
  	 if (!ObjectId.isValid(id)) {
@@ -113,7 +114,7 @@ Info.findOneAndRemove({
 
 //patching data(update request)
 
-app.patch('/info/:id',(req,res)=>{
+app.patch('/info/:id',authenticate,(req,res)=>{
 
 	var id=req.params.id;
 	var body=_.pick(req.body,['Team','stats']);
