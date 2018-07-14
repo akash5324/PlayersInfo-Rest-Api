@@ -3,13 +3,14 @@ const bodyparser=require('body-parser');
 const _=require('lodash');
 const {ObjectId}=require('mongodb');
 const {Info}=require('./models/info');
+const{User}=require('./models/users');
 const {mongoose}=require('./database/mongoose');
 const app=express();
 const port=process.env.PORT || 3000;
 app.use(bodyparser.json());
 
 
-//psting data to the server
+//posting data to the server
 app.post('/info',(req,res)=>{
 
 	
@@ -109,6 +110,65 @@ Info.findOneAndRemove({
     res.status(400).send();
   });
 });
+
+//patching data(update request)
+
+app.patch('/info/:id',(req,res)=>{
+
+	var id=req.params.id;
+	var body=_.pick(req.body,['Team','stats']);
+
+
+ 	 if (!ObjectId.isValid(id)) {
+    return res.status(404).send();
+}
+
+if(body.Team || body.stats){
+
+	Team:req.body.Team
+
+}
+
+Info.findByIdAndUpdate(id, {$set:body},{new:true}).then((infos)=>{
+
+	if(!infos){
+
+		return res.status(400).send();
+	}
+
+	res.send({infos});
+
+
+});
+
+});
+
+
+//user post request
+app.post('/users',(req,res)=>{
+
+	
+	console.log('you made a user post request');
+	var body=_.pick(req.body,['email','password']);
+	var user= new User(body);
+	console.log({user});
+
+	user.save().then(()=>{
+
+			console.log("user data is saved successfully to the database");
+			return user.generateToken();
+	}).then((token)=>{
+
+		res.header('x-auth',token).send(user);
+	}).catch((e)=>{
+
+		res.status(400).send(e);
+
+	})
+
+});	
+
+
 
 //server binding to port 3000
 
