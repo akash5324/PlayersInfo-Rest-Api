@@ -13,6 +13,21 @@
 6. command promp
 7. sublime Text
 ```
+# Functionalities:
+
+```
+	GET REQUEST
+	
+	POST REQUEST
+	
+	DELETE REQUEST
+	
+	PATCH REQUEST
+	
+	UPLOAD IMAGE
+	
+	THUMBNAIL GENERATION
+```
 
 # How to run the application:
 
