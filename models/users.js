@@ -1,9 +1,9 @@
 const mongoose=require('mongoose');
-const validator=require('validator');
-const jwt=require('jsonwebtoken');
+const validator=require('validator');//validator module to validaye email id
+const jwt=require('jsonwebtoken');//to generate tokens
 const _=require('lodash');
-const bcrypt = require('bcryptjs');
-//schema model for info
+const bcrypt = require('bcryptjs');//to encrypt password
+//schema model for user info
 
 var UserSchema=new mongoose.Schema({
 
@@ -44,7 +44,7 @@ tokens:[{
 }]	
 });
 
-
+//generating token
 UserSchema.methods.toJSON=function(){
 
 	var user=this;
@@ -65,7 +65,7 @@ UserSchema.methods.generateToken=function(){
 		});
 };
 
-
+//authenticating token
 UserSchema.statics.findByToken=function(token){
 
 var user=this;
@@ -89,7 +89,7 @@ var user=this;
 
 };
 
-
+//storing hashed password
 UserSchema.pre('save', function (next) {
   var user = this;
 
